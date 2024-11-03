@@ -64,10 +64,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="G5_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="G5_files/libs/quarto-html/anchor.min.js"></script>
 <link href="G5_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="G5_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="G5_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="G5_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="G5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="G5_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="G5_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
 
 
 </head>
@@ -103,26 +103,213 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="quarto" class="level2">
-<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
-<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+<section id="pasos-para-crear-una-página-web" class="level1">
+<h1>Pasos para crear una página web</h1>
+<ol type="1">
+<li>Tener mi proyecto</li>
+<li>Conectar mi proyecto a GitHub</li>
+<li>Tener un archivo en html llamado “index.html”</li>
+<li>Hacer push al repositorio</li>
+<li>Activar GitHub pages</li>
+</ol>
+<p>source(‘https://inkaverse.com/setup.r’)</p>
+<p>#Importas datos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span><span class="st">"https://docs.google.com/spreadsheets/d/15r7ZwcZZHbEgltlF6gSFvCTFA-CFzVBWwg3mFlRyKPs/edit?gid=172957346#gid=172957346"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gs<span class="ot">&lt;-</span><span class="fu">as_sheets_id</span>(url)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>fb<span class="ot">&lt;-</span>gs <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">range_read</span>(<span class="st">"fb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Using an auto-discovered, cached token.
+  To suppress this message, modify your code or options to clearly consent to
+  the use of a cached token.
+  See gargle's "Non-interactive auth" vignette for more details:
+  &lt;https://gargle.r-lib.org/articles/non-interactive-auth.html&gt;
+ℹ The googlesheets4 package is using a cached token for
+  '7576425921@untrm.edu.pe'.
+Auto-refreshing stale OAuth token.
+✔ Reading from "LA MOLINA 2014 POTATO WUE (FB)".
+✔ Range ''fb''.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(fb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="running-code" class="level2">
-<h2 class="anchored" data-anchor-id="running-code">Running Code</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<section id="modelo-lineal" class="level1">
+<h1>Modelo lineal</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(leafdw, wue) <span class="sc">~</span> bloque <span class="sc">+</span> geno <span class="sc">+</span> riego <span class="sc">+</span> riego<span class="sc">:</span>geno, <span class="at">data =</span> fb)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>Analysis of Variance Table
+
+             Df  Pillai approx F num Df den Df  Pr(&gt;F)    
+(Intercept)   1 0.98956   5450.3      2    115 &lt; 2e-16 ***
+bloque        4 0.08063      1.2      8    232 0.28903    
+geno         14 1.08884      9.9     28    232 &lt; 2e-16 ***
+riego         1 0.69431    130.6      2    115 &lt; 2e-16 ***
+geno:riego   14 0.30367      1.5     28    232 0.06222 .  
+Residuals   116                                           
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(fb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [150 × 18] (S3: tbl_df/tbl/data.frame)
+ $ riego  : chr [1:150] "sequia" "sequia" "irrigado" "sequia" ...
+ $ geno   : chr [1:150] "G01" "G02" "G01" "G02" ...
+ $ block  : num [1:150] 2 4 3 1 2 5 1 4 2 1 ...
+ $ bloque : chr [1:150] "II" "IV" "III" "I" ...
+ $ spad_29: num [1:150] 56.3 52.7 49.2 55.5 58.2 43.5 57.4 56.1 61 60.3 ...
+ $ spad_83: num [1:150] 41.1 47.9 41.6 44.2 32.6 37.8 42.5 35.9 57.5 41.8 ...
+ $ rwc_84 : num [1:150] 61.5 63.2 67.7 64.9 74.5 ...
+ $ op_84  : num [1:150] -2.43 -3.03 -2.5 -2.4 -2.27 ...
+ $ leafdw : num [1:150] 13.28 9.42 18.22 8.84 14.55 ...
+ $ stemdw : num [1:150] 14.87 8.63 24.19 6.58 12.63 ...
+ $ rootdw : num [1:150] 3.83 2.1 3.16 2 1.83 2.83 2.28 3.65 4.04 4.17 ...
+ $ tubdw  : num [1:150] 19.8 17.7 38 13.5 51.1 ...
+ $ biomdw : num [1:150] 51.8 37.8 83.6 30.9 80.2 ...
+ $ hi     : num [1:150] 0.45 0.43 0.455 0.437 0.638 ...
+ $ ttrans : num [1:150] 4.5 3.54 8.39 2.9 7.37 ...
+ $ wue    : num [1:150] 11.51 10.69 9.97 10.65 10.88 ...
+ $ twue   : num [1:150] 4.4 4.99 4.53 4.65 6.94 ...
+ $ lfa    : num [1:150] 2900 2619 7579 2450 5413 ...</code></pre>
 </div>
-<p>You can add options to executable code like this</p>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Modelo lineal con multibariable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> leafdw <span class="sc">~</span> bloque <span class="sc">+</span> geno <span class="sc">+</span> riego <span class="sc">+</span>riego<span class="sc">*</span>geno , <span class="at">data =</span> fb)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>Analysis of Variance Table
+
+Response: leafdw
+            Df  Sum Sq Mean Sq  F value  Pr(&gt;F)    
+bloque       4   26.13    6.53   1.1810 0.32286    
+geno        14 2437.24  174.09  31.4688 &lt; 2e-16 ***
+riego        1 1065.87 1065.87 192.6695 &lt; 2e-16 ***
+geno:riego  14  172.96   12.35   2.2332 0.01023 *  
+Residuals  116  641.72    5.53                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(fb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [150 × 18] (S3: tbl_df/tbl/data.frame)
+ $ riego  : chr [1:150] "sequia" "sequia" "irrigado" "sequia" ...
+ $ geno   : chr [1:150] "G01" "G02" "G01" "G02" ...
+ $ block  : num [1:150] 2 4 3 1 2 5 1 4 2 1 ...
+ $ bloque : chr [1:150] "II" "IV" "III" "I" ...
+ $ spad_29: num [1:150] 56.3 52.7 49.2 55.5 58.2 43.5 57.4 56.1 61 60.3 ...
+ $ spad_83: num [1:150] 41.1 47.9 41.6 44.2 32.6 37.8 42.5 35.9 57.5 41.8 ...
+ $ rwc_84 : num [1:150] 61.5 63.2 67.7 64.9 74.5 ...
+ $ op_84  : num [1:150] -2.43 -3.03 -2.5 -2.4 -2.27 ...
+ $ leafdw : num [1:150] 13.28 9.42 18.22 8.84 14.55 ...
+ $ stemdw : num [1:150] 14.87 8.63 24.19 6.58 12.63 ...
+ $ rootdw : num [1:150] 3.83 2.1 3.16 2 1.83 2.83 2.28 3.65 4.04 4.17 ...
+ $ tubdw  : num [1:150] 19.8 17.7 38 13.5 51.1 ...
+ $ biomdw : num [1:150] 51.8 37.8 83.6 30.9 80.2 ...
+ $ hi     : num [1:150] 0.45 0.43 0.455 0.437 0.638 ...
+ $ ttrans : num [1:150] 4.5 3.54 8.39 2.9 7.37 ...
+ $ wue    : num [1:150] 11.51 10.69 9.97 10.65 10.88 ...
+ $ twue   : num [1:150] 4.4 4.99 4.53 4.65 6.94 ...
+ $ lfa    : num [1:150] 2900 2619 7579 2450 5413 ...</code></pre>
 </div>
 </div>
-<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> wue <span class="sc">~</span> bloque <span class="sc">+</span> geno <span class="sc">+</span> riego <span class="sc">+</span>riego<span class="sc">*</span>geno , <span class="at">data =</span> fb)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: wue
+            Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+bloque       4  14.723   3.681  1.4539    0.2208    
+geno        14 123.100   8.793  3.4731 9.837e-05 ***
+riego        1 118.465 118.465 46.7921 3.932e-10 ***
+geno:riego  14  28.790   2.056  0.8123    0.6544    
+Residuals  116 293.680   2.532                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(fb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [150 × 18] (S3: tbl_df/tbl/data.frame)
+ $ riego  : chr [1:150] "sequia" "sequia" "irrigado" "sequia" ...
+ $ geno   : chr [1:150] "G01" "G02" "G01" "G02" ...
+ $ block  : num [1:150] 2 4 3 1 2 5 1 4 2 1 ...
+ $ bloque : chr [1:150] "II" "IV" "III" "I" ...
+ $ spad_29: num [1:150] 56.3 52.7 49.2 55.5 58.2 43.5 57.4 56.1 61 60.3 ...
+ $ spad_83: num [1:150] 41.1 47.9 41.6 44.2 32.6 37.8 42.5 35.9 57.5 41.8 ...
+ $ rwc_84 : num [1:150] 61.5 63.2 67.7 64.9 74.5 ...
+ $ op_84  : num [1:150] -2.43 -3.03 -2.5 -2.4 -2.27 ...
+ $ leafdw : num [1:150] 13.28 9.42 18.22 8.84 14.55 ...
+ $ stemdw : num [1:150] 14.87 8.63 24.19 6.58 12.63 ...
+ $ rootdw : num [1:150] 3.83 2.1 3.16 2 1.83 2.83 2.28 3.65 4.04 4.17 ...
+ $ tubdw  : num [1:150] 19.8 17.7 38 13.5 51.1 ...
+ $ biomdw : num [1:150] 51.8 37.8 83.6 30.9 80.2 ...
+ $ hi     : num [1:150] 0.45 0.43 0.455 0.437 0.638 ...
+ $ ttrans : num [1:150] 4.5 3.54 8.39 2.9 7.37 ...
+ $ wue    : num [1:150] 11.51 10.69 9.97 10.65 10.88 ...
+ $ twue   : num [1:150] 4.4 4.99 4.53 4.65 6.94 ...
+ $ lfa    : num [1:150] 2900 2619 7579 2450 5413 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="box-plot" class="level1">
+<h1>box plot</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fb, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(geno), <span class="at">y =</span> leafdw, <span class="at">fill =</span> <span class="fu">factor</span>(riego))) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot de Leafdw por Genotipo y Bloque"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Genotipo"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Leafdw"</span> ,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"riego"</span>) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="G5_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear un boxplot para 'wue' agrupado por los factores 'riego' y 'geno'</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fb, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(geno), <span class="at">y =</span> wue, <span class="at">fill =</span> <span class="fu">factor</span>(riego))) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot de WUE por Riego y Genotipo"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"genotipo"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"WUE"</span> ,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"riego"</span>)<span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="G5_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="comparación-de-medias" class="level1">
+<h1>Comparación De Medias</h1>
 </section>
 
 </main>

@@ -4,25 +4,90 @@ author: Alvarado Muñoz, Lesly - Comeca Huaman, Mariela - Delgado Rafael, Jamil 
 format: html
 editor: visual
 output-file: index
+theme: darkly
 ---
 
-## Quarto
+# Pasos para crear una página web
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+1.  Tener mi proyecto
+1.  Conectar mi proyecto a GitHub
+1.  Tener un archivo en html llamado "index.html"
+1.  Hacer push al repositorio
+1.  Activar GitHub pages
 
-## Running Code
+source('https://inkaverse.com/setup.r')
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
+#Importas datos
 ```{r}
-1 + 1
+library(googlesheets4)
+library(tidyverse)
+
+url <-"https://docs.google.com/spreadsheets/d/15r7ZwcZZHbEgltlF6gSFvCTFA-CFzVBWwg3mFlRyKPs/edit?gid=172957346#gid=172957346"
+gs<-as_sheets_id(url)
+
+fb<-gs %>%
+  range_read("fb")
+
+view(fb)
 ```
 
-You can add options to executable code like this
 
+# Modelo lineal
 ```{r}
-#| echo: false
-2 * 2
+modelo <- manova(cbind(leafdw, wue) ~ bloque + geno + riego + riego:geno, data = fb)
+
+
+anova(modelo)
+str(fb)
+
+#Modelo lineal con multibariable
+```
+```{r}
+modelo <- lm(formula = leafdw ~ bloque + geno + riego +riego*geno , data = fb)
+
+anova(modelo)
+str(fb)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+modelo <- lm(formula = wue ~ bloque + geno + riego +riego*geno , data = fb)
+
+anova(modelo)
+str(fb)
+```
+
+# box plot
+```{r}
+
+ggplot(fb, aes(x = factor(geno), y = leafdw, fill = factor(riego))) +
+  geom_boxplot() +
+  labs(title = "Boxplot de Leafdw por Genotipo y Bloque",
+       x = "Genotipo",
+       y = "Leafdw" ,
+       fill = "riego") +
+  theme_minimal()
+
+# Crear un boxplot para 'wue' agrupado por los factores 'riego' y 'geno'
+ggplot(fb, aes(x = factor(geno), y = wue, fill = factor(riego))) +
+  geom_boxplot() +
+  labs(title = "Boxplot de WUE por Riego y Genotipo",
+       x = "genotipo",
+       y = "WUE" ,
+       fill = "riego")+
+  theme_minimal()
+
+
+```
+
+
+# Comparación De Medias
+```{r}
+
+```
+
+
+
+
+
+
+
