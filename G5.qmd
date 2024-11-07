@@ -52,7 +52,7 @@ plot(modelo_leafdw)
 
 ```
 
-# Boplot de leafdw
+# Boxplot de leafdw
 
 ```{r}
 
