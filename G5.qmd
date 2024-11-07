@@ -1,10 +1,16 @@
 ---
-title: "Pagina Web"
-author: Alvarado Muñoz, Lesly - Comeca Huaman, Mariela - Delgado Rafael, Jamil - Diaz Saucedo, Yoel - Florida Garcia, Cristian - Luis Marin, Ney.
-format: html
-editor: visual
-output-file: index
-theme: darkly
+title: "mi pagina web"
+author: "Alvarado Muñoz, Lesly - Comeca Huaman, Mariela - Delgado Rafael, Jamil - Diaz Saucedo, Yoel - Florida Garcia, Cristian - Luis Marin, Ney"
+format:
+  html:
+   toc: true
+   toc-location: left
+   embed-resources: true
+   number-sections: true
+   output-file: index
+   theme: darkly
+editor_options: 
+  chunk_output_type: console
 ---
 
 #  Pasos para crear una página web
