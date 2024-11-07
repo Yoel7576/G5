@@ -57,13 +57,13 @@ plot(modelo_leafdw)
 
 ```{r}
 
-ggplot(fb, aes(x = factor(geno), y = leafdw, fill = factor(riego))) +
-  geom_boxplot() +
+ggplot(fb, aes(x = geno, y = leafdw, colour = riego)) +
+  geom_boxplot(outlier.colour ="blue", outlier.shape = 16, outlier.size = 2) +
   labs(title = "Boxplot de leafdw por Genotipo y Riego",
-       x = "Genotipo",
-       y = "leafdw") +
-  scale_fill_manual(values = c("#FF9999", "#9999FF"), name = "Riego") +
-  theme_minimal()
+       x = "Interacción Riego y Genotipo",
+       y = "Peso seco de la hoja (g)") +
+  theme_minimal() +  expand_limits(y=0)+ scale_y_continuous(breaks = seq(0,30, by = 5))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
 ```
 
