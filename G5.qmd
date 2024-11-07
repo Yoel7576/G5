@@ -7,7 +7,7 @@ output-file: index
 theme: darkly
 ---
 
-# Pasos para crear una página web
+#  Pasos para crear una página web
 
 1.  Tener mi proyecto
 1.  Conectar mi proyecto a GitHub
@@ -17,7 +17,7 @@ theme: darkly
 
 source('https://inkaverse.com/setup.r')
 
-#Importas datos
+#  Importas datos
 ```{r}
 library(googlesheets4)
 library(tidyverse)
@@ -29,61 +29,172 @@ fb<-gs %>%
   range_read("fb")
 
 view(fb)
+
 ```
 
 
-# Modelo lineal
-```{r}
-modelo <- manova(cbind(leafdw, wue) ~ bloque + geno + riego + riego:geno, data = fb)
 
-
-anova(modelo)
-str(fb)
-
-#Modelo lineal con multibariable
-```
-```{r}
-modelo <- lm(formula = leafdw ~ bloque + geno + riego +riego*geno , data = fb)
-
-anova(modelo)
-str(fb)
-```
+#  Modelo lineal de leafdw (peso seco de la hoja)
 
 ```{r}
-modelo <- lm(formula = wue ~ bloque + geno + riego +riego*geno , data = fb)
+modelo_leafdw <- lm(formula = leafdw ~ bloque + geno + riego + riego:geno, data = fb)
 
-anova(modelo)
+anova(modelo_leafdw)
 str(fb)
+
+plot(modelo_leafdw)
+
 ```
 
-# box plot
+# Boplot de leafdw
+
 ```{r}
 
 ggplot(fb, aes(x = factor(geno), y = leafdw, fill = factor(riego))) +
   geom_boxplot() +
-  labs(title = "Boxplot de Leafdw por Genotipo y Bloque",
+  labs(title = "Boxplot de leafdw por Genotipo y Riego",
        x = "Genotipo",
-       y = "Leafdw" ,
-       fill = "riego") +
+       y = "leafdw") +
+  scale_fill_manual(values = c("#FF9999", "#9999FF"), name = "Riego") +
   theme_minimal()
-
-# Crear un boxplot para 'wue' agrupado por los factores 'riego' y 'geno'
-ggplot(fb, aes(x = factor(geno), y = wue, fill = factor(riego))) +
-  geom_boxplot() +
-  labs(title = "Boxplot de WUE por Riego y Genotipo",
-       x = "genotipo",
-       y = "WUE" ,
-       fill = "riego")+
-  theme_minimal()
-
 
 ```
-
 
 # Comparación De Medias
+
+
 ```{r}
+library(agricolae)
+
+
+tukey_result <- HSD.test(modelo_leafdw, c("geno", "riego"), group = TRUE)
+print(tukey_result)
+
 
 ```
+
+```{r}
+str(tukey_result)
+
+library(tidyverse)
+
+mc <- tukey_result$groups %>% 
+  rownames_to_column("trat") %>% 
+  separate(trat, c("riego", "variedad")) 
+
+
+str (mc)
+```
+
+##  Gráfico de barras
+
+```{r}
+library(ggplot2)
+
+ggplot(mc, aes(x = riego, y = leafdw, fill = variedad)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +  # Barras agrupadas por variedad
+  geom_text(aes(label = groups), position = position_dodge(0.9), vjust = -0.5, size = 3) +  # Etiquetas sobre las barras
+  labs(title = "Producción de LEAFDW por Riego y Variedad", x = "variedad", y = "LEAFDW", fill = "riego") +  # Etiquetas de los ejes y título
+  scale_fill_manual(values = c("irrigado" = "tomato", "sequia" = "turquoise3")) +  # Colores personalizados para las variedades
+  theme_minimal() +  # Tema minimalista
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+# comparacion de medias: emmeans
+
+```{r}
+
+library(emmeans)
+library(multcomp)
+library(dplyr)
+library(MASS)
+
+cm1 <- emmeans(modelo_leafdw, ~ geno | riego) %>% 
+  cld(Letters = letters, reversed = T)
+
+cm1
+
+cm2 <- emmeans(modelo_leafdw, ~ riego | geno) %>% 
+  cld(Letters = letters, reversed = T)
+
+cm2
+
+cm3 <- emmeans(modelo_leafdw, ~ riego * geno) %>% 
+  cld(Letters = letters, reversed = T)
+
+cm3
+```
+
+
+
+## Gráfico
+
+```{r}
+dtcm <- as.data.frame(cm2) %>% 
+  rename(sig = ".group")
+
+ggplot(dtcm, aes(x = geno, y = emmean, fill = riego)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black") +
+  geom_text(aes(label = sig, y = emmean*1.05),
+            position = position_dodge(width = 0.9),
+            vjust = 0) +
+  labs(x = "Genotipo", y = "leafdw", fill = "Riego") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Gráfico de barras: leafdw por genotipo y riego")
+```
+
+
+# Análisis multivariado
+
+```{r}
+str(fb)
+```
+
+```{r}
+library(psych)
+
+fb %>% 
+  select_if(is.numeric) %>% 
+  dplyr::select(!c("block")) %>% 
+  pairs.panels(x = .
+               , hist.col="red"
+               , pch = 21
+               , stars = TRUE
+               , scale = FALSE
+               , lm = TRUE
+               ) 
+```
+
+
+## PCA: Análisis de componentes principales
+
+```{r}
+library(FactoMineR)
+library(cowplot)
+
+
+mv <- fb %>%
+  group_by(riego, geno) %>%
+  summarise(across(where(is.numeric), ~ mean(., na.rm = TRUE))) %>%
+  PCA(scale.unit = T, quali.sup = c(1:4), graph = F)
+
+p1 <- plot(mv,
+           choix="ind",
+           habillage=1,
+           label = "ind")
+
+p2 <- plot(mv,
+           choix="var")
+
+list(p1, p2) %>%
+  plot_grid(plotlist = ., nrow = 1)
+```
+
+
+
+
+
 
 
 
