@@ -23,7 +23,8 @@ editor_options:
 
 source('https://inkaverse.com/setup.r')
 
-#  Importas datos
+#  Importar datos
+
 ```{r}
 library(googlesheets4)
 library(tidyverse)
