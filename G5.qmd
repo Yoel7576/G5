@@ -1,5 +1,5 @@
 ---
-title: "mi pagina web"
+title: "Efecto de la eficiencia de rigo sobre el cultivo de papa"
 author: "Alvarado Muñoz, Lesly - Comeca Huaman, Mariela - Delgado Rafael, Jamil - Diaz Saucedo, Yoel - Florida Garcia, Cristian - Luis Marin, Ney"
 format:
   html:
@@ -12,6 +12,15 @@ format:
 editor_options: 
   chunk_output_type: console
 ---
+
+# Introducción
+
+La agricultura es un sector crucial para el desarrollo económico y social de muchos países, y su rendimiento depende de múltiples factores que afectan el crecimiento de los cultivos. Aspectos como el clima, la disponibilidad de agua y los tratamientos aplicados a las plantas son determinantes para optimizar la producción agrícola (Gómez et al., 2021). En particular, la producción de papa (Solanum tuberosum) ha cobrado importancia debido a su valor nutricional y su adaptabilidad a diversas condiciones ambientales (Martínez & Pérez, 2020). Sin embargo, las variaciones en las condiciones de cultivo, como el riego y el manejo de nutrientes, pueden tener un impacto significativo en los parámetros de crecimiento de las plantas y en su productividad.
+
+Este estudio se centra en el análisis de datos experimentales de cultivos de papa, con especial atención al peso seco de las hojas (leafdw), una medida importante que refleja la eficiencia en el uso del agua y el proceso de fotosíntesis. El peso seco de las hojas se ha empleado como un indicador en numerosos estudios para evaluar la respuesta de los cultivos a condiciones de estrés y para mejorar las prácticas de manejo agrícola (Sánchez & Rodríguez, 2019). Para el análisis de estos datos, se han utilizado herramientas estadísticas avanzadas, incluyendo el uso de la biblioteca de R googlesheets4 para importar datos desde Google Sheets, facilitando así la manipulación y el análisis directo de la información en un entorno de programación (Wickham & Grolemund, 2017).
+
+Además, se emplean modelos lineales y técnicas de análisis multivariado para explorar las relaciones entre diversas variables de crecimiento y los efectos de distintos tratamientos. Este enfoque estadístico es esencial para identificar diferencias significativas y patrones de crecimiento en los cultivos bajo diferentes condiciones, permitiendo tomar decisiones basadas en evidencia que puedan optimizar la producción y promover prácticas agrícolas sostenibles (Aguilar et al., 2022). La aplicación de estas técnicas tiene el potencial de contribuir al desarrollo de estrategias de cultivo más eficientes y resilientes ante condiciones adversas (Brown, 2018).
+
 
 #  Pasos para crear una página web
 
@@ -199,7 +208,14 @@ list(p1, p2) %>%
 ```
 
 
+# Referencias
 
+Aguilar, M., López, D., & Rivera, J. (2022). Estadística aplicada a la agronomía. Editorial Científica.
+Brown, T. (2018). Sustainable agriculture: Challenges and opportunities. Journal of Agricultural Science, 10(3), 245–260.
+Gómez, R., Hernández, S., & Silva, L. (2021). Impacto del cambio climático en la producción de cultivos de papa. Revista de Investigación Agrícola, 5(2), 132–148.
+Martínez, P., & Pérez, M. (2020). La papa como alimento básico: Importancia nutricional y adaptabilidad. Revista Andina de Agricultura, 12(1), 45–56.
+Sánchez, J., & Rodríguez, A. (2019). Fisiología vegetal aplicada a la agricultura. Ediciones AgroCiencia.
+Wickham, H., & Grolemund, G. (2017). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media.
 
 
 
